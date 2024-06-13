@@ -1,9 +1,14 @@
 import React from 'react';
-import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 
 export default function Home() {
   return (
-    <View style={styles.container}>
+
+    <SafeAreaView style={styles.container}>
+
+
+    
+    
       <Text style={styles.greeting}>Hola, John!</Text>
       <Text style={styles.subGreeting}>Ten un buen día</Text>
       <TextInput
@@ -43,7 +48,7 @@ export default function Home() {
           <Text style={styles.fileTime}>Hace 12 horas</Text>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -52,6 +57,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
     padding: 20,
+    marginTop: 40
   },
   greeting: {
     fontSize: 24,
