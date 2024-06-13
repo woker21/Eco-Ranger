@@ -99,6 +99,9 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     marginRight: 20,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   },
   eventCardTitle: {
     fontSize: 18,
