@@ -11,7 +11,7 @@ export default function Component() {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
 
-    const [email, setEmail] = useState('')
+  const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
   const [registerEmail, setRegisterEmail] = useState('')
   const [registerPass, setRegisterPass] = useState('')
