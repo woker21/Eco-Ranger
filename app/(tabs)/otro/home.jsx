@@ -83,15 +83,19 @@ const TabNavigator = () => (
         } else if (route.name === 'Tienda de Tokens') {
           iconName = 'cart';
         }
+        else if (route.name === 'Tienda de Tokens') {
+          iconName = 'cart';
+        }
 
         return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
       },
       tabBarActiveTintColor: '#2C5F2D',
-      tabBarInactiveTintColor: 'gray',
+      tabBarInactiveTintColor: 'gray', 
     })}
   >
     <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Inicio' }} />
-    <Tab.Screen name="Eventos" component={EventsScreen} />
+    
+    <Tab.Screen name="Eventos" component={EventsScreen} /> 
     <Tab.Screen name="Calendario" component={CalendarScreen} />
     <Tab.Screen name="Tienda de Tokens" component={TokenStoreScreen} />
   </Tab.Navigator>

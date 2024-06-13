@@ -3,7 +3,9 @@ import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import styled from 'styled-components/native';
 import { Svg, Path, Circle, Line } from 'react-native-svg';
 
-export default function Component() {
+
+
+const YourTrees = () => {
   return (
     <Container >
       <Card>
@@ -63,6 +65,10 @@ export default function Component() {
     </Container>
   );
 }
+ 
+export default YourTrees;
+
+
 
 const Container = styled.ImageBackground`
   flex: 1;
