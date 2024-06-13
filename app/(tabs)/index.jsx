@@ -77,7 +77,7 @@ export default function Component() {
           <InputWrapper>
             <Label >Fecha de nacinamiento</Label>
             <StyledTextInput onPress={()=>{ setDatePickerVisibility(true)}}
-            placeholder="Fecha de nacimiento"
+            placeholder="01-08-1999"
             placeholderTextColor="gray"
             editable={false}
             value={selectedDate ? selectedDate.toDateString() : ''}/>
