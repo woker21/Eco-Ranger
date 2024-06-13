@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const StoreTokens = () => {
     return (
         <SafeAreaView>
-            <Text style={styles.greeting}>Hola, John!</Text>
+            <Text style={styles.greeting}>Store</Text>
         </SafeAreaView>
     );
 }
