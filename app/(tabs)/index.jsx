@@ -3,49 +3,96 @@ import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet, SafeAr
 
 export default function Home() {
   return (
-    <SafeAreaView style ={styles.container}>
+   <>
 
-      <Text style={styles.greeting}>Hola, John!</Text>
-      <Text style={styles.subGreeting}>Ten un buen día</Text>
-      <TextInput
-        style={styles.searchBar}
-        placeholder="Buscar"
-        placeholderTextColor="#ccc"
-      />
-      <View style={styles.filters}>
-        <TouchableOpacity style={styles.filterButton}>
-          <Text style={styles.filterText}>Tareas</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.filterButton}>
-          <Text style={styles.filterText}>Mis archivos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.filterButton}>
-          <Text style={styles.filterText}>Carpetas</Text>
-        </TouchableOpacity>
-      </View>
-      <ScrollView horizontal={true} style={styles.scrollView}>
-        <View style={styles.folderCard}>
-          <Text style={styles.folderCardTitle}>Archivos Personales</Text>
-          <Text style={styles.folderCardSubtitle}>Hace 12 horas</Text>
-        </View>
-        <View style={styles.folderCard}>
-          <Text style={styles.folderCardTitle}>Archivos Personales</Text>
-          <Text style={styles.folderCardSubtitle}>Hace 12 horas</Text>
-        </View>
-      </ScrollView>
-      <View style={styles.recentFiles}>
-        <Text style={styles.recentFilesTitle}>Archivos recientes</Text>
-        <View style={styles.file}>
-          <Text style={styles.fileName}>Partida de nacimiento</Text>
-          <Text style={styles.fileTime}>Hace 12 horas</Text>
-        </View>
-        <View style={styles.file}>
-          <Text style={styles.fileName}>Partida de nacimiento</Text>
-          <Text style={styles.fileTime}>Hace 12 horas</Text>
-        </View>
-      </View>
-    
-    </SafeAreaView >
+   {Switch? <Container>
+      <Card>
+        <IconContainer>
+          <LeafIcon width={48} height={48} fill="#2ecc71" />
+          <Title>EcoRangers</Title>
+          <Subtitle>Donate and help plant trees for a sustainable future.</Subtitle>
+        </IconContainer>
+        <Form>
+          <InputWrapper>
+            <Label>Email</Label>
+            <StyledTextInput onChange={(e)=>setEmail(e.target.value)} value={email} placeholder="m@example.com" keyboardType="email-address" />
+          </InputWrapper>
+          <InputWrapper>
+            <Label>Password</Label>
+            <StyledTextInput onChange={(e)=>setPass(e.target.value)} value={pass} placeholder="Password" secureTextEntry />
+          </InputWrapper>
+          <StyledButton onPress={()=>router.push('/otro/map')} >
+            <ButtonText >Sign In</ButtonText>
+          </StyledButton>
+        </Form>
+        <Footer>
+          <StyledLink onPress={()=>{
+            setSwitch(!Switch)}}>Create an account</StyledLink>
+          <SocialIcons>
+            <IconButton><ChromeIcon width={20} height={20} /></IconButton>
+            <IconButton><FacebookIcon width={20} height={20} /></IconButton>
+            <IconButton><TwitterIcon width={20} height={20} /></IconButton>
+          </SocialIcons>
+        </Footer>
+      </Card>
+    </Container>
+    :
+    <Container>
+      <Card>
+        <IconContainer>
+          <LeafIcon width={48} height={48} fill="#2ecc71" />
+          <Title>EcoRangers</Title>
+          <Subtitle>Donate and help plant trees for a sustainable future.</Subtitle>
+        </IconContainer>
+        <Form>
+          <InputWrapper>
+            <Label>Username</Label>
+            <StyledTextInput placeholder="m@example.com" keyboardType="email-address" />
+          </InputWrapper>
+          <InputWrapper>
+            <Label>Email</Label>
+            <StyledTextInput  onChange={(e)=>setRegisterEmail(e.target.value)} value={registerEmail} placeholder="m@example.com" keyboardType="email-address" />
+          </InputWrapper>
+          <InputWrapper>
+            <Label>Password</Label>
+            <StyledTextInput onChange={(e)=>setRegisterPass(e.target.value)} value={registerPass} placeholder="Password" secureTextEntry />
+          </InputWrapper>
+          <InputWrapper>
+            <Label>Verify Password</Label>
+            <StyledTextInput placeholder="Password" secureTextEntry />
+          </InputWrapper>
+          <InputWrapper>
+            <Label >Fecha de nacinamiento</Label>
+            <StyledTextInput onPress={()=>{ setDatePickerVisibility(true)}}
+            placeholder="01-08-1999"
+            placeholderTextColor="gray"
+            editable={false}
+            value={selectedDate ? selectedDate.toDateString() : ''}/>
+            <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+            />
+          </InputWrapper>
+          <StyledButton onPress={async()=>{
+            setSwitch(!Switch)
+                }} >
+            <ButtonText >Create Account</ButtonText>
+          </StyledButton>
+        </Form>
+        <Footer>
+          <StyledLink onPress={()=>{setSwitch(!Switch)}} >Sign In</StyledLink>
+          <SocialIcons>
+            <IconButton><ChromeIcon width={20} height={20} /></IconButton>
+            <IconButton><FacebookIcon width={20} height={20} /></IconButton>
+            <IconButton><TwitterIcon width={20} height={20} /></IconButton>
+          </SocialIcons>
+        </Footer>
+      </Card>
+    </Container>
+    }
+    </>
   );
 }
 

@@ -2,7 +2,8 @@ import * as React from 'react';
 import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 
 
-const HomeScreen = () => (
+export default function HomeScreen() {
+  return(
   <View style={styles.container}>
     <Text style={styles.greeting}>Hola, John!</Text>
     <Text style={styles.subGreeting}>Ten un buen día</Text>
@@ -44,7 +45,10 @@ const HomeScreen = () => (
       </View>
     </View>
   </View>
-);
+);}
+
+
+
 
 
 const styles = StyleSheet.create({
