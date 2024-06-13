@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 import styled from 'styled-components/native';
 import { Svg, Path, Circle, Line } from 'react-native-svg';
 import { router } from 'expo-router';
 
 export default function Component() {
-  
+  const [Switch, setSwitch] = useState(true)
   return (
-    <Container>
+   <>
+
+   {Switch? <Container>
       <Card>
         <IconContainer>
           <LeafIcon width={48} height={48} fill="#2ecc71" />
@@ -28,7 +30,7 @@ export default function Component() {
           </StyledButton>
         </Form>
         <Footer>
-          <StyledLink>Create an account</StyledLink>
+          <StyledLink onPress={()=>{setSwitch(!Switch)}} >Create an account</StyledLink>
           <SocialIcons>
             <IconButton><ChromeIcon width={20} height={20} /></IconButton>
             <IconButton><FacebookIcon width={20} height={20} /></IconButton>
@@ -37,6 +39,39 @@ export default function Component() {
         </Footer>
       </Card>
     </Container>
+    :
+    <Container>
+      <Card>
+        <IconContainer>
+          <LeafIcon width={48} height={48} fill="#2ecc71" />
+          <Title>EcoRangers</Title>
+          <Subtitle>Donate and help plant trees for a sustainable future.</Subtitle>
+        </IconContainer>
+        <Form>
+          <InputWrapper>
+            <Label>Email</Label>
+            <StyledTextInput placeholder="m@example.com" keyboardType="email-address" />
+          </InputWrapper>
+          <InputWrapper>
+            <Label>Password</Label>
+            <StyledTextInput placeholder="Password" secureTextEntry />
+          </InputWrapper>
+          <StyledButton onPress={()=>setSwitch(!Switch)} >
+            <ButtonText >Create Account</ButtonText>
+          </StyledButton>
+        </Form>
+        <Footer>
+          <StyledLink onPress={()=>{setSwitch(!Switch)}} >Sign In</StyledLink>
+          <SocialIcons>
+            <IconButton><ChromeIcon width={20} height={20} /></IconButton>
+            <IconButton><FacebookIcon width={20} height={20} /></IconButton>
+            <IconButton><TwitterIcon width={20} height={20} /></IconButton>
+          </SocialIcons>
+        </Footer>
+      </Card>
+    </Container>
+    }
+    </>
   );
 }
 
