@@ -1,70 +1,162 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React from 'react';
+import { View, Text, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
+import styled from 'styled-components/native';
+import { Svg, Path, Circle, Line } from 'react-native-svg';
+import { router } from 'expo-router';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
+export default function Component() {
+  
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <Container>
+      <Card>
+        <IconContainer>
+          <LeafIcon width={48} height={48} fill="#2ecc71" />
+          <Title>EcoRangers</Title>
+          <Subtitle>Donate and help plant trees for a sustainable future.</Subtitle>
+        </IconContainer>
+        <Form>
+          <InputWrapper>
+            <Label>Email</Label>
+            <StyledTextInput placeholder="m@example.com" keyboardType="email-address" />
+          </InputWrapper>
+          <InputWrapper>
+            <Label>Password</Label>
+            <StyledTextInput placeholder="Password" secureTextEntry />
+          </InputWrapper>
+          <StyledButton onPress={()=>router.push('./explore')} >
+            <ButtonText >Sign In</ButtonText>
+          </StyledButton>
+        </Form>
+        <Footer>
+          <StyledLink>Create an account</StyledLink>
+          <SocialIcons>
+            <IconButton><ChromeIcon width={20} height={20} /></IconButton>
+            <IconButton><FacebookIcon width={20} height={20} /></IconButton>
+            <IconButton><TwitterIcon width={20} height={20} /></IconButton>
+          </SocialIcons>
+        </Footer>
+      </Card>
+    </Container>
   );
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+const Container = styled.ImageBackground`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+`;
+
+const Card = styled.View`
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  elevation: 4;
+`;
+
+const IconContainer = styled.View`
+  align-items: center;
+  margin-bottom: 24px;
+`;
+
+const Title = styled.Text`
+  font-size: 24px;
+  font-weight: bold;
+  color: #2ecc71;
+  margin-top: 8px;
+`;
+
+const Subtitle = styled.Text`
+  font-size: 14px;
+  color: gray;
+  text-align: center;
+`;
+
+const Form = styled.View`
+  margin-bottom: 16px;
+`;
+
+const InputWrapper = styled.View`
+  margin-bottom: 16px;
+`;
+
+const Label = styled.Text`
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 4px;
+`;
+
+const StyledTextInput = styled.TextInput`
+  height: 40px;
+  border-width: 1px;
+  border-color: #ccc;
+  border-radius: 4px;
+  padding: 8px;
+`;
+
+const StyledButton = styled.TouchableOpacity`
+  height: 40px;
+  background-color: #2ecc71;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+`;
+
+const ButtonText = styled.Text`
+  color: white;
+  font-size: 16px;
+`;
+
+const Footer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const StyledLink = styled.Text`
+  color: #2ecc71;
+  font-size: 14px;
+`;
+
+const SocialIcons = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const IconButton = styled.TouchableOpacity`
+  margin-left: 8px;
+`;
+
+// SVG Icons
+const LeafIcon = (props) => (
+  <Svg {...props} viewBox="0 0 24 24">
+    <Path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+    <Path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+  </Svg>
+);
+
+const ChromeIcon = (props) => (
+  <Svg {...props} viewBox="0 0 24 24">
+    <Circle cx="12" cy="12" r="10" />
+    <Circle cx="12" cy="12" r="4" />
+    <Line x1="21.17" y1="8" x2="12" y2="8" />
+    <Line x1="3.95" y1="6.06" x2="8.54" y2="14" />
+    <Line x1="10.88" y1="21.94" x2="15.46" y2="14" />
+  </Svg>
+);
+
+const FacebookIcon = (props) => (
+  <Svg {...props} viewBox="0 0 24 24">
+    <Path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </Svg>
+);
+
+const TwitterIcon = (props) => (
+  <Svg {...props} viewBox="0 0 24 24">
+    <Path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+  </Svg>
+);
