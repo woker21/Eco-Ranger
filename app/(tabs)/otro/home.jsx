@@ -4,7 +4,7 @@ import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet, SafeAr
 export default function Home() {
   return (
 
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
 
 
     
@@ -48,7 +48,7 @@ export default function Home() {
           <Text style={styles.fileTime}>Hace 12 horas</Text>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    padding: 40,
+    padding: 20,
+    paddingTop:40,
   },
   greeting: {
     fontSize: 24,
