@@ -16,6 +16,7 @@ export default function Component() {
   const hideDatePicker = () => {
       setDatePickerVisibility(false);
   };
+
   return (
    <>
 

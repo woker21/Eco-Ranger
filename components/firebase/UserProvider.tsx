@@ -1,5 +1,5 @@
-
-import { createContext, useState, useContext, ReactNode, Dispatch, SetStateAction, useEffect } from 'react';
+import React, { createContext, useState, useContext, ReactNode, Dispatch, SetStateAction, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface User {
     id: string;
@@ -31,16 +31,35 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        if (user) {
-            localStorage.setItem('Datos', JSON.stringify(user))
-        } else {
-            const saved = localStorage.getItem('Datos')
-
-            if (saved) {
-                setUser(JSON.parse(saved))
+        const loadUser = async () => {
+            try {
+                const savedUser = await AsyncStorage.getItem('Datos');
+                if (savedUser) {
+                    setUser(JSON.parse(savedUser));
+                }
+            } catch (error) {
+                console.error('Failed to load user from AsyncStorage', error);
             }
-        }
-    }, [user])
+        };
+
+        loadUser();
+    }, []);
+
+    useEffect(() => {
+        const saveUser = async () => {
+            try {
+                if (user) {
+                    await AsyncStorage.setItem('Datos', JSON.stringify(user));
+                } else {
+                    await AsyncStorage.removeItem('Datos');
+                }
+            } catch (error) {
+                console.error('Failed to save user to AsyncStorage', error);
+            }
+        };
+
+        saveUser();
+    }, [user]);
 
     const setUserType = (type: number) => {
         setUser((prevUser) => prevUser ? { ...prevUser, type } : null);
@@ -53,7 +72,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <AppContext.Provider value={{ user, setUser, setUserType, setUserNick,setUserNickSlug }}>
+        <AppContext.Provider value={{ user, setUser, setUserType, setUserNick, setUserNickSlug }}>
             {children}
         </AppContext.Provider>
     );
