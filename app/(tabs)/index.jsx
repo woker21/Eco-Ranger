@@ -35,7 +35,7 @@ export default function Component() {
             <Label>Password</Label>
             <StyledTextInput placeholder="Password" secureTextEntry />
           </InputWrapper>
-          <StyledButton onPress={()=>router.push('./home')} >
+          <StyledButton onPress={()=>router.push('/otro/home')} >
             <ButtonText >Sign In</ButtonText>
           </StyledButton>
         </Form>
