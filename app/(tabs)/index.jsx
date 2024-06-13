@@ -121,7 +121,7 @@ const Card = styled.View`
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  elevation: 4;
+
 `;
 
 const IconContainer = styled.View`
