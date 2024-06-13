@@ -3,9 +3,19 @@ import { View, Text, TextInput, TouchableOpacity, ImageBackground } from 'react-
 import styled from 'styled-components/native';
 import { Svg, Path, Circle, Line } from 'react-native-svg';
 import { router } from 'expo-router';
-
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 export default function Component() {
   const [Switch, setSwitch] = useState(true)
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleConfirm = (date) => {
+  setDatePickerVisibility(false);
+  setSelectedDate(date);
+  };
+  const hideDatePicker = () => {
+      setDatePickerVisibility(false);
+  };
   return (
    <>
 
@@ -49,12 +59,34 @@ export default function Component() {
         </IconContainer>
         <Form>
           <InputWrapper>
+            <Label>Username</Label>
+            <StyledTextInput placeholder="m@example.com" keyboardType="email-address" />
+          </InputWrapper>
+          <InputWrapper>
             <Label>Email</Label>
             <StyledTextInput placeholder="m@example.com" keyboardType="email-address" />
           </InputWrapper>
           <InputWrapper>
             <Label>Password</Label>
             <StyledTextInput placeholder="Password" secureTextEntry />
+          </InputWrapper>
+          <InputWrapper>
+            <Label>Verify Password</Label>
+            <StyledTextInput placeholder="Password" secureTextEntry />
+          </InputWrapper>
+          <InputWrapper>
+            <Label >Fecha de nacinamiento</Label>
+            <StyledTextInput onPress={()=>{ setDatePickerVisibility(true)}}
+            placeholder="Fecha de nacimiento"
+            placeholderTextColor="gray"
+            editable={false}
+            value={selectedDate ? selectedDate.toDateString() : ''}/>
+            <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+            />
           </InputWrapper>
           <StyledButton onPress={()=>setSwitch(!Switch)} >
             <ButtonText >Create Account</ButtonText>
