@@ -39,23 +39,9 @@ const App = () => {
           <Text style={styles.fileTime}>Hace 2 días</Text>
         </View>
       </View>
-      <View style={styles.bottomNavigation}>
-        <TouchableOpacity style={styles.navButton}>
-          <Text style={styles.navButtonText}>Inicio</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Text style={styles.navButtonText}>Buscar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Text style={styles.navButtonText}>+</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Text style={styles.navButtonText}>Eventos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Text style={styles.navButtonText}>Notas</Text>
-        </TouchableOpacity>
-      </View>
+
+
+      
     
     </SafeAreaView>
   );
@@ -134,13 +120,7 @@ const styles = StyleSheet.create({
   fileTime: {
     color: '#A3D9A5',
   },
-  bottomNavigation: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 10,
-    borderTopColor: '#A3D9A5',
-    borderTopWidth: 1,
-  },
+  
   navButton: {
     alignItems: 'center',
   },
