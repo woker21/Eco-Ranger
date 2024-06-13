@@ -56,8 +56,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    padding: 20,
-    marginTop: 40
+    padding: 40,
   },
   greeting: {
     fontSize: 24,
