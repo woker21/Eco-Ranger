@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 const HomeScreen = () => (
   <View style={styles.container}>
@@ -47,61 +46,6 @@ const HomeScreen = () => (
   </View>
 );
 
-const EventsScreen = () => (
-  <View style={styles.container}>
-    <Text style={styles.greeting}>Eventos</Text>
-  </View>
-);
-
-const CalendarScreen = () => (
-  <View style={styles.container}>
-    <Text style={styles.greeting}>Calendario</Text>
-  </View>
-);
-
-const TokenStoreScreen = () => (
-  <View style={styles.container}>
-    <Text style={styles.greeting}>Tienda de Tokens</Text>
-  </View>
-);
-
-const Tab = createBottomTabNavigator();
-
-const TabNavigator = () => (
-  <Tab.Navigator
-    initialRouteName="Home"
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ color, size }) => {
-        let iconName;
-
-        if (route.name === 'Home') {
-          iconName = 'home';
-        } else if (route.name === 'Eventos') {
-          iconName = 'calendar';
-        } else if (route.name === 'Calendario') {
-          iconName = 'calendar-month';
-        } else if (route.name === 'Tienda de Tokens') {
-          iconName = 'cart';
-        }
-        else if (route.name === 'Tienda de Tokens') {
-          iconName = 'cart';
-        }
-
-        return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
-      },
-      tabBarActiveTintColor: '#2C5F2D',
-      tabBarInactiveTintColor: 'gray', 
-    })}
-  >
-    <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Inicio' }} />
-    
-    <Tab.Screen name="Eventos" component={EventsScreen} /> 
-    <Tab.Screen name="Calendario" component={CalendarScreen} />
-    <Tab.Screen name="Tienda de Tokens" component={TokenStoreScreen} />
-  </Tab.Navigator>
-);
-
-export default TabNavigator;
 
 const styles = StyleSheet.create({
   container: {
