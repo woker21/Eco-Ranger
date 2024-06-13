@@ -4,8 +4,7 @@ import { StyleSheet, View, Modal, Text, TouchableOpacity, FlatList } from 'react
 import MapView, { Marker } from 'react-native-maps';
 
 const MapScreen = () => {
-  const [selectedZone, setSelectedZone] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
+
 
   const initialRegion = {
     latitude: 41.3851,
@@ -30,11 +29,6 @@ const MapScreen = () => {
     { id: 5, name: 'Birch Tree', price: '$55' },
   ];
 
-  const handleMarkerPress = (zone) => {
-    setSelectedZone(zone);
-    setModalVisible(true);
-  };
-
   const renderTreeItem = ({ item }) => (
     <View style={styles.treeItem}>
       <Text style={styles.treeName}>{item.name}</Text>
@@ -54,34 +48,9 @@ const MapScreen = () => {
             coordinate={{ latitude: zone.latitude, longitude: zone.longitude }}
             title={zone.title}
             description={zone.description}
-            onPress={() => handleMarkerPress(zone)}
           />
         ))}
       </MapView>
-
-      {selectedZone && (
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => setModalVisible(false)}
-        >
-          <View style={styles.modalView}>
-            <Text style={styles.modalTitle}>Trees for Sale in {selectedZone.title}</Text>
-            <FlatList
-              data={treesForSale}
-              renderItem={renderTreeItem}
-              keyExtractor={item => item.id.toString()}
-            />
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setModalVisible(false)}
-            >
-              <Text style={styles.closeButtonText}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </Modal>
-      )}
     </View>
   );
 };

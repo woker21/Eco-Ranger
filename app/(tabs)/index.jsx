@@ -4,10 +4,19 @@ import styled from 'styled-components/native';
 import { Svg, Path, Circle, Line } from 'react-native-svg';
 import { router } from 'expo-router';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { signUp } from '../../components/firebase/auth';
+
 export default function Component() {
   const [Switch, setSwitch] = useState(true)
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+
+    const [email, setEmail] = useState('')
+  const [pass, setPass] = useState('')
+  const [registerEmail, setRegisterEmail] = useState('')
+  const [registerPass, setRegisterPass] = useState('')
+  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsgRegister, setErrorMsgRegister] = useState('');
 
   const handleConfirm = (date) => {
   setDatePickerVisibility(false);
@@ -16,7 +25,6 @@ export default function Component() {
   const hideDatePicker = () => {
       setDatePickerVisibility(false);
   };
-
   return (
    <>
 
@@ -30,18 +38,19 @@ export default function Component() {
         <Form>
           <InputWrapper>
             <Label>Email</Label>
-            <StyledTextInput placeholder="m@example.com" keyboardType="email-address" />
+            <StyledTextInput onChange={(e)=>setEmail(e.target.value)} value={email} placeholder="m@example.com" keyboardType="email-address" />
           </InputWrapper>
           <InputWrapper>
             <Label>Password</Label>
-            <StyledTextInput placeholder="Password" secureTextEntry />
+            <StyledTextInput onChange={(e)=>setPass(e.target.value)} value={pass} placeholder="Password" secureTextEntry />
           </InputWrapper>
           <StyledButton onPress={()=>router.push('/otro/home')} >
             <ButtonText >Sign In</ButtonText>
           </StyledButton>
         </Form>
         <Footer>
-          <StyledLink onPress={()=>{setSwitch(!Switch)}} >Create an account</StyledLink>
+          <StyledLink onPress={()=>{
+            setSwitch(!Switch)}}>Create an account</StyledLink>
           <SocialIcons>
             <IconButton><ChromeIcon width={20} height={20} /></IconButton>
             <IconButton><FacebookIcon width={20} height={20} /></IconButton>
@@ -65,11 +74,11 @@ export default function Component() {
           </InputWrapper>
           <InputWrapper>
             <Label>Email</Label>
-            <StyledTextInput placeholder="m@example.com" keyboardType="email-address" />
+            <StyledTextInput  onChange={(e)=>setRegisterEmail(e.target.value)} value={registerEmail} placeholder="m@example.com" keyboardType="email-address" />
           </InputWrapper>
           <InputWrapper>
             <Label>Password</Label>
-            <StyledTextInput placeholder="Password" secureTextEntry />
+            <StyledTextInput onChange={(e)=>setRegisterPass(e.target.value)} value={registerPass} placeholder="Password" secureTextEntry />
           </InputWrapper>
           <InputWrapper>
             <Label>Verify Password</Label>
@@ -89,7 +98,9 @@ export default function Component() {
             onCancel={hideDatePicker}
             />
           </InputWrapper>
-          <StyledButton onPress={()=>setSwitch(!Switch)} >
+          <StyledButton onPress={async()=>{
+            setSwitch(!Switch)
+                }} >
             <ButtonText >Create Account</ButtonText>
           </StyledButton>
         </Form>

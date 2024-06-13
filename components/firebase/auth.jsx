@@ -3,8 +3,6 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
-  GoogleAuthProvider,
-  signInWithPopup,
   sendPasswordResetEmail,
   fetchSignInMethodsForEmail,
   sendEmailVerification,
@@ -58,18 +56,31 @@ export const checkEmailAndPass = async (email, password) => {
     return err.message;
   }
 };
-export const getCurrentUserId = async () => await auth.currentUser;
+
+export const getCurrentUserId = async () => auth.currentUser ? auth.currentUser.uid : null;
+
 export const logout = async () => await signOut(auth);
 
 export const loginWithGoogle = async () => {
-  const provider = new GoogleAuthProvider();
-  const result = await signInWithPopup(auth, provider);
-  const user = result.user;
-  const u = await getUserById(user.uid);
-  if (!u) {
-    await initializeUserData(user.uid);
+  try {
+    const provider = new GoogleAuthProvider();
+    const { idToken, type } = await auth.signInWithPopup(provider);
+    if (type === 'success') {
+      const credential = GoogleAuthProvider.credential(idToken);
+      const authResult = await signInWithCredential(auth, credential);
+      const user = authResult.user;
+      const u = await getUserById(user.uid);
+      if (!u) {
+        await initializeUserData(user.uid);
+      }
+      return user.uid;
+    } else {
+      throw new Error('Google sign-in failed');
+    }
+  } catch (error) {
+    console.log(error.message);
+    return null;
   }
-  return user.uid;
 };
 
 const initializeUserData = async (uid) => {
@@ -91,26 +102,23 @@ const initializeUserData = async (uid) => {
     lastTrainedTime: 0,
   });
 };
+
 export const getUserById = async (id) => {
   const docRef = doc(db, "users", id);
   const result = await getDoc(docRef);
-  return result.data();
+  return result.exists() ? result.data() : null;
 };
+
 export const updateUser = async (id, obj) => {
   const docRef = doc(db, "users", id);
-  await updateDoc(docRef, obj)
-}
+  await updateDoc(docRef, obj);
+};
 
-export const sendPass = (email) => {
-  sendPasswordResetEmail(auth, email)
-    .then(() => {
-      return "Email sent";
-      // Password reset email sent!
-      // ..
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
+export const sendPass = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    return "Email sent";
+  } catch (error) {
+    return error.message;
+  }
 };
