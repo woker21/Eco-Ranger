@@ -1,55 +1,51 @@
-import * as React from 'react';
+import React from 'react';
 import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 
-
-export default function HomeScreen() {
-  return(
-  <View style={styles.container}>
-    <Text style={styles.greeting}>Hola, John!</Text>
-    <Text style={styles.subGreeting}>Ten un buen día</Text>
-    <TextInput
-      style={styles.searchBar}
-      placeholder="Buscar"
-      placeholderTextColor="#A3D9A5"
-    />
-    <View style={styles.filters}>
-      <TouchableOpacity style={styles.filterButton}>
-        <Text style={styles.filterText}>Tareas</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.filterButton}>
-        <Text style={styles.filterText}>Mis eventos</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.filterButton}>
-        <Text style={styles.filterText}>Calendario</Text>
-      </TouchableOpacity>
+export default function Home() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.greeting}>Hola, John!</Text>
+      <Text style={styles.subGreeting}>Ten un buen día</Text>
+      <TextInput
+        style={styles.searchBar}
+        placeholder="Buscar"
+        placeholderTextColor="#ccc"
+      />
+      <View style={styles.filters}>
+        <TouchableOpacity style={styles.filterButton}>
+          <Text style={styles.filterText}>Tareas</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.filterButton}>
+          <Text style={styles.filterText}>Mis archivos</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.filterButton}>
+          <Text style={styles.filterText}>Carpetas</Text>
+        </TouchableOpacity>
+      </View>
+      <ScrollView horizontal={true} style={styles.scrollView}>
+        <View style={styles.folderCard}>
+          <Text style={styles.folderCardTitle}>Archivos Personales</Text>
+          <Text style={styles.folderCardSubtitle}>Hace 12 horas</Text>
+        </View>
+        <View style={styles.folderCard}>
+          <Text style={styles.folderCardTitle}>Archivos Personales</Text>
+          <Text style={styles.folderCardSubtitle}>Hace 12 horas</Text>
+        </View>
+      </ScrollView>
+      <View style={styles.recentFiles}>
+        <Text style={styles.recentFilesTitle}>Archivos recientes</Text>
+        <View style={styles.file}>
+          <Text style={styles.fileName}>Partida de nacimiento</Text>
+          <Text style={styles.fileTime}>Hace 12 horas</Text>
+        </View>
+        <View style={styles.file}>
+          <Text style={styles.fileName}>Partida de nacimiento</Text>
+          <Text style={styles.fileTime}>Hace 12 horas</Text>
+        </View>
+      </View>
     </View>
-    <ScrollView horizontal={true} style={styles.scrollView}>
-      <View style={styles.eventCard}>
-        <Text style={styles.eventCardTitle}>Evento 1</Text>
-        <Text style={styles.eventCardSubtitle}>Detalles del evento</Text>
-      </View>
-      <View style={styles.eventCard}>
-        <Text style={styles.eventCardTitle}>Evento 2</Text>
-        <Text style={styles.eventCardSubtitle}>Detalles del evento</Text>
-      </View>
-    </ScrollView>
-    <View style={styles.recentFiles}>
-      <Text style={styles.recentFilesTitle}>Eventos recientes</Text>
-      <View style={styles.file}>
-        <Text style={styles.fileName}>Reunión comunitaria</Text>
-        <Text style={styles.fileTime}>Hace 12 horas</Text>
-      </View>
-      <View style={styles.file}>
-        <Text style={styles.fileName}>Plantación de árboles</Text>
-        <Text style={styles.fileTime}>Hace 2 días</Text>
-      </View>
-    </View>
-  </View>
-);}
-
-
-
-
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -60,19 +56,19 @@ const styles = StyleSheet.create({
   greeting: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#2C5F2D',
+    color: '#000',
   },
   subGreeting: {
     fontSize: 16,
-    color: '#A3D9A5',
+    color: '#2ecc71',
   },
   searchBar: {
     marginVertical: 20,
     padding: 10,
-    borderColor: '#A3D9A5',
+    borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 5,
-    color: '#2C5F2D',
+    color: '#000',
   },
   filters: {
     flexDirection: 'row',
@@ -85,24 +81,24 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   filterText: {
-    color: '#2C5F2D',
+    color: '#000',
     fontWeight: 'bold',
   },
   scrollView: {
     marginVertical: 20,
   },
-  eventCard: {
-    backgroundColor: '#87CEEB',
+  folderCard: {
+    backgroundColor: '#2ecc71',
     padding: 20,
     borderRadius: 10,
     marginRight: 20,
   },
-  eventCardTitle: {
+  folderCardTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
-  eventCardSubtitle: {
+  folderCardSubtitle: {
     fontSize: 14,
     color: '#FFFFFF',
   },
@@ -112,20 +108,20 @@ const styles = StyleSheet.create({
   recentFilesTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#2C5F2D',
+    color: '#000',
     marginBottom: 10,
   },
   file: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 10,
-    borderBottomColor: '#A3D9A5',
+    borderBottomColor: '#ccc',
     borderBottomWidth: 1,
   },
   fileName: {
-    color: '#2C5F2D',
+    color: '#000',
   },
   fileTime: {
-    color: '#A3D9A5',
+    color: '#2ecc71',
   },
 });
