@@ -1,9 +1,12 @@
 // MapScreen.js
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Modal, Text, TouchableOpacity, FlatList } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 const MapScreen = () => {
+  const [selectedZone, setSelectedZone] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
   const initialRegion = {
     latitude: 41.3851,
     longitude: 2.1734,
@@ -19,6 +22,26 @@ const MapScreen = () => {
     { id: 5, title: 'Ciutadella Park', description: 'Historic park with increasing green cover.', latitude: 41.3880, longitude: 2.1870 },
   ];
 
+  const treesForSale = [
+    { id: 1, name: 'Oak Tree', price: '$50' },
+    { id: 2, name: 'Pine Tree', price: '$40' },
+    { id: 3, name: 'Maple Tree', price: '$45' },
+    { id: 4, name: 'Cherry Blossom', price: '$60' },
+    { id: 5, name: 'Birch Tree', price: '$55' },
+  ];
+
+  const handleMarkerPress = (zone) => {
+    setSelectedZone(zone);
+    setModalVisible(true);
+  };
+
+  const renderTreeItem = ({ item }) => (
+    <View style={styles.treeItem}>
+      <Text style={styles.treeName}>{item.name}</Text>
+      <Text style={styles.treePrice}>{item.price}</Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <MapView
@@ -31,9 +54,34 @@ const MapScreen = () => {
             coordinate={{ latitude: zone.latitude, longitude: zone.longitude }}
             title={zone.title}
             description={zone.description}
+            onPress={() => handleMarkerPress(zone)}
           />
         ))}
       </MapView>
+
+      {selectedZone && (
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <View style={styles.modalView}>
+            <Text style={styles.modalTitle}>Trees for Sale in {selectedZone.title}</Text>
+            <FlatList
+              data={treesForSale}
+              renderItem={renderTreeItem}
+              keyExtractor={item => item.id.toString()}
+            />
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.closeButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      )}
     </View>
   );
 };
@@ -46,6 +94,48 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 20,
+    marginBottom: 15,
+    fontWeight: 'bold',
+  },
+  treeItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+  },
+  treeName: {
+    fontSize: 18,
+  },
+  treePrice: {
+    fontSize: 18,
+  },
+  closeButton: {
+    backgroundColor: '#2196F3',
+    borderRadius: 10,
+    padding: 10,
+    elevation: 2,
+    marginTop: 20,
+  },
+  closeButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 
